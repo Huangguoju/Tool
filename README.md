@@ -12,3 +12,10 @@ enigmavbQT打包工具：使用方法
 
 参考网址：https://blog.csdn.net/windsnow1/article/details/78004265/
 
+# QT
+Password requirements
+Minimum 7 characters
+Cannot contain your email address or name
+Must include at least three of these four types: lowercase letters, uppercase letters, digits, symbols
+Accepted characters: a-z, A-Z, 0-9, space and symbols !"#/()=?@${[]}\,.-_<>|;:'*^~+
+ Hg .... 9;
