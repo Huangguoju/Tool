@@ -18,4 +18,4 @@ Minimum 7 characters
 Cannot contain your email address or name
 Must include at least three of these four types: lowercase letters, uppercase letters, digits, symbols
 Accepted characters: a-z, A-Z, 0-9, space and symbols !"#/()=?@${[]}\,.-_<>|;:'*^~+
- Hg .... 9;
+ notice : Hg .... 9;
