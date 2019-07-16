@@ -27,5 +27,5 @@ Accepted characters: a-z, A-Z, 0-9, space and symbols !"#/()=?@${[]}\,.-_<>|;:'*
 
 qt编程的步骤，然后再仔细说一下qmake的使用。我看书上的都是编写好cpp文件后，分别执行命令: qmake -project、qmake、make，然后执行就可以了，
 
-#PNG 转 
+# PNG 转 ICO
 https://lirongyao.com/ico/
