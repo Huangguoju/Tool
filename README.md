@@ -29,3 +29,11 @@ qt编程的步骤，然后再仔细说一下qmake的使用。我看书上的都�
 
 # PNG 转 ICO
 https://lirongyao.com/ico/
+
+# QML程序打包发布（解决QML打包后不能启动的问题）
+命令：windeployqt xxx.exe -qmldir C:\Qt\Qt5.10.1\5.10.1\mingw53_32\qml
+上述指令会将Qt5Core.dll，Qt5Sql.dll，libeay32.dll，ssleay32.dll 这几个文件需要单独复制到发布目录。
+
+
+
+
