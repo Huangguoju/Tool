@@ -1,0 +1,60 @@
+bool CMainThread::WriteNormalReport()
+{
+
+    CURL *pcurl;
+	RS_S8 *pTempBuf = new RS_S8[512 * 4]();
+	long httpCode = 200;
+	stReportInfo reportInfoCB;
+	RS_S8 m_postDatabuf[8192];
+	memset(&m_postDatabuf, 0x0, 8192);
+	strncpy(m_postDatabuf, "{\"eventData\":{\"item\":\"camera\",\"id\":\"1\",\"event_msg\":\"videoloss\",\"reportDate\":\"2019/08/22 12:00:00\"},\"device_id\":\"001a2b123456\",\"lanIP\":\"192.168.1.10\",\"report_type\": \"eventReport\"}", 8192);
+	//snprintf(pTempBuf, 8192, "{\"lanIP\":\"192.168.1.10%d\"}", 5);
+
+	RS_S8 token[] = "B16E55A1A203236E3591DDA6609B487F969C55051B52BBC998060ACCA6DC70E0D7B91ED286A0250694242D8712F82CB4ADFB270CA8A21F7B2BB9F64777B314768249CF2D6DFC88B9010A80FEB4E290C0A9A2EA703B43E2BD71CB2AC6F4611D2E";
+
+	pcurl = curl_easy_init();
+	if (pcurl) {
+		
+		struct curl_slist *headers = NULL; /* init to NULL is important */
+		snprintf(pTempBuf, 512 * 4, "token:%s", token);
+		headers = curl_slist_append(headers, pTempBuf);
+		headers = curl_slist_append(headers, "Content-Type: application/json");
+	
+		curl_easy_setopt(pcurl, CURLOPT_HTTPHEADER, headers);
+		curl_easy_setopt(pcurl, CURLOPT_URL, "https://dvr.nxt.tw/dvrEventReport.aspx");
+		
+		curl_easy_setopt(pcurl, CURLOPT_POSTFIELDS, m_postDatabuf);
+		curl_easy_setopt(pcurl, CURLOPT_POSTFIELDSIZE, strlen(m_postDatabuf));
+		curl_easy_setopt(pcurl, CURLOPT_WRITEFUNCTION, NormalReportCallBack);
+		curl_easy_setopt(pcurl, CURLOPT_WRITEDATA, &reportInfoCB);
+		curl_easy_setopt(pcurl, CURLOPT_POST, 1L);
+		/* Perform the request, res will get the return code */
+		curl_easy_setopt(pcurl, CURLOPT_NOSIGNAL, 1L); // thread safe requirement
+		curl_easy_setopt(pcurl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_easy_setopt(pcurl, CURLOPT_TIMEOUT, 5L);
+		curl_easy_perform(pcurl);
+		curl_easy_getinfo(pcurl, CURLINFO_RESPONSE_CODE, &httpCode);
+		
+		curl_slist_free_all(headers);
+		curl_easy_cleanup(pcurl);
+	}
+	if(200 == (int)httpCode)
+	{
+		printf("\033[;31m=1234======RS_HTTP_SUCCESS====================LINE:%d=FUN:%s====\033[0m\n", __LINE__,__func__);
+		printf("\033[;31m=1234=====interval:%d=====================\033[0m\n", reportInfoCB.interval);
+
+	}
+	else
+	{
+		DBG_CLOUD_PRINT(LEVEL_ERR, "httpCode %d\n", (int)httpCode);
+	}
+
+	delete[] pTempBuf;
+	pTempBuf = NULL;
+	return (int)httpCode;
+    //
+    return true;
+}
+
+
+
