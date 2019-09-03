@@ -39,6 +39,11 @@ https://lirongyao.com/ico/
 命令：windeployqt xxx.exe -qmldir C:\Qt\Qt5.10.1\5.10.1\mingw53_32\qml
 上述指令会将Qt5Core.dll，Qt5Sql.dll，libeay32.dll，ssleay32.dll 这几个文件需要单独复制到发布目录。
 
+# github在线浏览工具  Sourcegraph
+
+# API工具  postman
+
+
 
 
 
